@@ -1,0 +1,13 @@
+div {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+mat-dialog-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 20px;
+
+}

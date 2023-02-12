@@ -1,0 +1,109 @@
+<mat-toolbar>
+  <h1>Kite</h1>
+  <span class="spacer"></span>
+  <div>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      ADD SPOT
+    </button>
+
+    <mat-icon (click)="logOut()" matTooltip="Logout">account_circle</mat-icon>
+  </div>
+</mat-toolbar>
+
+<google-map
+  class="map"
+  height="500px"
+  width="100%"
+  [center]="center"
+  [zoom]="zoom"
+  (mapClick)="moveMap($event)"
+  (mapMousemove)="move($event)"
+>
+  <!--<div class="filter">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <div>
+          <mat-icon>filter_list</mat-icon>
+          <mat-panel-title> Filter </mat-panel-title>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="panelContent">
+        <mat-form-field appearance="fill">
+          <mat-label>Country</mat-label>
+          <input matInput />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Wind Probability</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+  </div>-->
+</google-map>
+
+<div class="locSearch">
+  <h2>Locations</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Search...</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Search location"
+    />
+    <mat-icon class="search-icon" color="primary" matPrefix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<div class="wrapper">
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    class="mat-elevation-z8"
+    id="table"
+  >
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Country</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.country }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lat">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Latitude</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.lat }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="long">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Longitude</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.long }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="probability">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Wind prob.</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.probability }}%</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="month">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >When to go</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.month }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+</div>
